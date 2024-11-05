@@ -16,12 +16,13 @@ dependencies:
   fl_chart: ^0.63.0
   intl: ^0.18.1
 
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.0
-  mockito: ^5.4.2
-  build_runner: ^2.4.6
+  mockito: ^5.4.4
+  build_runner: ^2.4.8
 
 flutter:
   uses-material-design: true

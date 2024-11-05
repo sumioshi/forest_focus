@@ -4,47 +4,93 @@ import '../models/focus_session.dart';
 
 class FocusService {
   final String baseUrl = 'http://localhost:3000';
+  final Map<String, String> headers = {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+  };
 
-  Future<List<FocusSession>> getCompletedSessions() async {
+  Future<List<FocusSession>> getAllSessions() async {
     try {
-      final response = await http.get(Uri.parse('$baseUrl/sessions'));
+      final response = await http.get(
+        Uri.parse('$baseUrl/sessions'),
+        headers: headers,
+      ).timeout(
+        const Duration(seconds: 5),
+        onTimeout: () => throw Exception('Connection timeout'),
+      );
+
       if (response.statusCode == 200) {
         final List<dynamic> jsonList = json.decode(response.body);
-        return jsonList
-            .map((json) => FocusSession.fromJson(json))
-            .where((session) => session.isCompleted)
-            .toList();
+        return jsonList.map((json) => FocusSession.fromJson(json)).toList();
+      } else {
+        throw Exception('Failed to load sessions: ${response.statusCode}');
       }
-      throw Exception('Failed to load sessions');
     } catch (e) {
-      throw Exception('Failed to connect to the server');
+      print('Error in getAllSessions: $e');
+      throw Exception('Failed to connect to server: $e');
     }
   }
 
-  Future<void> completeFocusSession() async {
+  Future<FocusSession> createSession(FocusSession session) async {
     try {
-      final session = FocusSession(
-        id: DateTime.now().millisecondsSinceEpoch.toString(),
-        userId: 'current_user',
-        treeType: 'oak',
-        startTime: DateTime.now().subtract(const Duration(minutes: 25)),
-        endTime: DateTime.now(),
-        duration: 25,
-        isCompleted: true,
-        treePlanted: true,
-      );
-
       final response = await http.post(
         Uri.parse('$baseUrl/sessions'),
-        headers: {'Content-Type': 'application/json'},
+        headers: headers,
         body: json.encode(session.toJson()),
+      ).timeout(
+        const Duration(seconds: 5),
+        onTimeout: () => throw Exception('Connection timeout'),
       );
 
-      if (response.statusCode != 201) {
-        throw Exception('Failed to save session');
+      if (response.statusCode == 201) {
+        return FocusSession.fromJson(json.decode(response.body));
+      } else {
+        throw Exception('Failed to create session: ${response.statusCode}');
       }
     } catch (e) {
-      throw Exception('Failed to connect to the server');
+      print('Error in createSession: $e');
+      throw Exception('Failed to connect to server: $e');
+    }
+  }
+
+  Future<FocusSession> updateSession(FocusSession session) async {
+    try {
+      final response = await http.put(
+        Uri.parse('$baseUrl/sessions/${session.id}'),
+        headers: headers,
+        body: json.encode(session.toJson()),
+      ).timeout(
+        const Duration(seconds: 5),
+        onTimeout: () => throw Exception('Connection timeout'),
+      );
+
+      if (response.statusCode == 200) {
+        return FocusSession.fromJson(json.decode(response.body));
+      } else {
+        throw Exception('Failed to update session: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Error in updateSession: $e');
+      throw Exception('Failed to connect to server: $e');
+    }
+  }
+
+  Future<void> deleteSession(String id) async {
+    try {
+      final response = await http.delete(
+        Uri.parse('$baseUrl/sessions/$id'),
+        headers: headers,
+      ).timeout(
+        const Duration(seconds: 5),
+        onTimeout: () => throw Exception('Connection timeout'),
+      );
+
+      if (response.statusCode != 200 && response.statusCode != 204) {
+        throw Exception('Failed to delete session: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Error in deleteSession: $e');
+      throw Exception('Failed to connect to server: $e');
     }
   }
 }

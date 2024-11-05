@@ -1,23 +1,56 @@
 {
+  "sessions": [
+    {
+      "id": "1730848337371",
+      "userId": "current_user",
+      "treeType": "oak",
+      "startTime": "2024-11-05T20:12:17.371",
+      "endTime": "2024-11-05T20:16:13.378",
+      "duration": 1,
+      "isCompleted": true,
+      "treePlanted": true
+    },
+    {
+      "id": "1730848341514",
+      "userId": "current_user",
+      "treeType": "oak",
+      "startTime": "2024-11-05T20:12:21.514",
+      "endTime": null,
+      "duration": 25,
+      "isCompleted": false,
+      "treePlanted": false
+    },
+    {
+      "id": "1730848584474",
+      "userId": "current_user",
+      "treeType": "birch",
+      "startTime": "2024-11-05T20:16:24.474",
+      "endTime": null,
+      "duration": 15,
+      "isCompleted": false,
+      "treePlanted": false
+    },
+    {
+      "id": "1730849032163",
+      "userId": "current_user",
+      "treeType": "maple",
+      "startTime": "2024-11-05T20:23:52.163",
+      "endTime": null,
+      "duration": 1,
+      "isCompleted": false,
+      "treePlanted": false
+    }
+  ],
   "users": [
     {
       "id": "1",
       "name": "Test User",
       "coins": 100,
-      "unlockedTrees": ["oak", "pine"],
+      "unlockedTrees": [
+        "oak",
+        "pine"
+      ],
       "totalMinutesFocused": 125
-    }
-  ],
-  "sessions": [
-    {
-      "id": "1",
-      "userId": "1",
-      "treeType": "oak",
-      "startTime": "2024-11-04T10:00:00.000Z",
-      "endTime": "2024-11-04T10:25:00.000Z",
-      "duration": 25,
-      "isCompleted": true,
-      "treePlanted": true
     }
   ],
   "stats": {
@@ -26,13 +59,34 @@
     "longestStreak": 3,
     "currentStreak": 1,
     "weeklyStats": [
-      {"day": "Monday", "minutes": 25},
-      {"day": "Tuesday", "minutes": 50},
-      {"day": "Wednesday", "minutes": 25},
-      {"day": "Thursday", "minutes": 0},
-      {"day": "Friday", "minutes": 25},
-      {"day": "Saturday", "minutes": 0},
-      {"day": "Sunday", "minutes": 0}
+      {
+        "day": "Monday",
+        "minutes": 25
+      },
+      {
+        "day": "Tuesday",
+        "minutes": 50
+      },
+      {
+        "day": "Wednesday",
+        "minutes": 25
+      },
+      {
+        "day": "Thursday",
+        "minutes": 0
+      },
+      {
+        "day": "Friday",
+        "minutes": 25
+      },
+      {
+        "day": "Saturday",
+        "minutes": 0
+      },
+      {
+        "day": "Sunday",
+        "minutes": 0
+      }
     ]
   }
 }
