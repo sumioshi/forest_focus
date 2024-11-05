@@ -1,0 +1,38 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "name": "Test User",
+      "coins": 100,
+      "unlockedTrees": ["oak", "pine"],
+      "totalMinutesFocused": 125
+    }
+  ],
+  "sessions": [
+    {
+      "id": "1",
+      "userId": "1",
+      "treeType": "oak",
+      "startTime": "2024-11-04T10:00:00.000Z",
+      "endTime": "2024-11-04T10:25:00.000Z",
+      "duration": 25,
+      "isCompleted": true,
+      "treePlanted": true
+    }
+  ],
+  "stats": {
+    "totalMinutesFocused": 125,
+    "treesPlanted": 5,
+    "longestStreak": 3,
+    "currentStreak": 1,
+    "weeklyStats": [
+      {"day": "Monday", "minutes": 25},
+      {"day": "Tuesday", "minutes": 50},
+      {"day": "Wednesday", "minutes": 25},
+      {"day": "Thursday", "minutes": 0},
+      {"day": "Friday", "minutes": 25},
+      {"day": "Saturday", "minutes": 0},
+      {"day": "Sunday", "minutes": 0}
+    ]
+  }
+}
