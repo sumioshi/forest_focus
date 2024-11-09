@@ -59,7 +59,7 @@ lib/
 
 1. Clone o repositório:
    ```bash
-   git clone https://seu-repositorio/forest_focus.git
+   git clone https://github.com/sumioshi/forest_focus.git
    ```
 
 2. Instale as dependências:
