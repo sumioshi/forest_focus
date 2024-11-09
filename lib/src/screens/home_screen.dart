@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'focus_timer_screen.dart';
-import 'forest_screen.dart';
-import 'stats_screen.dart';
-import 'sessions_list_screen.dart';
+import 'package:provider/provider.dart';
+import '../providers/focus_provider.dart';
+import '../screens/focus_timer_screen.dart';
+import '../screens/forest_screen.dart';
+import '../screens/sessions_list_screen.dart';
+import '../screens/stats_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -13,16 +15,18 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
-  
-  final List<Widget> _screens = [
-    const FocusTimerScreen(),
-    const ForestScreen(),
-    const SessionsListScreen(), // Nova tela de listagem
-    const StatsScreen(),
-  ];
 
   @override
   Widget build(BuildContext context) {
+    final completedSessions = context.watch<FocusProvider>().sessions.where((s) => s.isCompleted).toList();
+
+    final List<Widget> _screens = [
+      const FocusTimerScreen(),
+      ForestScreen(completedSessions: completedSessions),
+      const SessionsListScreen(),
+      const StatsScreen(),
+    ];
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Forest Focus'),

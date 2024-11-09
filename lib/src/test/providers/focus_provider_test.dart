@@ -1,59 +1,76 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:forest_focus/src/providers/focus_provider.dart';
 import 'package:forest_focus/src/models/focus_session.dart';
-import 'package:forest_focus/src/services/focus_service.dart';
-import 'package:mockito/mockito.dart';
-import 'package:mockito/annotations.dart';
 
-@GenerateMocks([FocusService])
 void main() {
   group('FocusProvider', () {
-    test('initial values should be empty', () {
-      final provider = FocusProvider();
-      
-      expect(provider.sessions, isEmpty);
-      expect(provider.isLoading, false);
-      expect(provider.error, '');
-      expect(provider.currentSession, null);
-      expect(provider.isTimerActive, false);
-      expect(provider.timerProgress, 0.0);
+    late FocusProvider provider;
+
+    setUp(() {
+      provider = FocusProvider();
     });
 
-    test('timer management should work correctly', () {
-      final provider = FocusProvider();
+    test('Adicionar nova sessão', () {
       final session = FocusSession(
         id: '1',
         userId: 'user1',
         treeType: 'oak',
         startTime: DateTime.now(),
         duration: 25,
+        isCompleted: false,
+        treePlanted: false,
       );
 
-      // Set current session
-      provider.setCurrentSession(session);
-      expect(provider.currentSession, session);
-      expect(provider.isTimerActive, false);
+      provider.addSession(session);
+      expect(provider.sessions, contains(session));
+    });
 
-      // Start timer
+    test('Iniciar e parar o timer', () {
+      final session = FocusSession(
+        id: '2',
+        userId: 'user2',
+        treeType: 'pine',
+        startTime: DateTime.now(),
+        duration: 1,
+        isCompleted: false,
+        treePlanted: false,
+      );
+
+      provider.setCurrentSession(session);
       provider.startTimer();
       expect(provider.isTimerActive, true);
 
-      // Stop timer
       provider.stopTimer();
-      expect(provider.isTimerActive, false);
-
-      // Reset timer
-      provider.resetTimer();
-      expect(provider.timerProgress, 0.0);
       expect(provider.isTimerActive, false);
     });
 
-    test('timer progress should update correctly', () {
-      final provider = FocusProvider();
-      const progress = 0.5;
+    test('Completar sessão', () async {
+      final session = FocusSession(
+        id: '3',
+        userId: 'user3',
+        treeType: 'cherry',
+        startTime: DateTime.now(),
+        duration: 1,
+        isCompleted: false,
+        treePlanted: false,
+      );
 
-      provider.updateTimerProgress(progress);
-      expect(provider.timerProgress, progress);
+      provider.addSession(session);
+      provider.setCurrentSession(session);
+      
+      // Simula a conclusão da sessão
+      await provider.updateSession(FocusSession(
+        id: session.id,
+        userId: session.userId,
+        treeType: session.treeType,
+        startTime: session.startTime,
+        endTime: DateTime.now(),
+        duration: session.duration,
+        isCompleted: true,
+        treePlanted: true,
+      ));
+
+      expect(provider.sessions.any((s) => s.isCompleted && s.id == session.id), isTrue);
     });
   });
 }

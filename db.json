@@ -1,44 +1,34 @@
 {
   "sessions": [
     {
-      "id": "1730848337371",
+      "id": "1731192934739",
       "userId": "current_user",
       "treeType": "oak",
-      "startTime": "2024-11-05T20:12:17.371",
-      "endTime": "2024-11-05T20:16:13.378",
+      "startTime": "2024-11-09T19:55:34.739",
+      "endTime": "2024-11-09T19:56:56.965",
       "duration": 1,
       "isCompleted": true,
       "treePlanted": true
     },
     {
-      "id": "1730848341514",
+      "id": "1731193174022",
       "userId": "current_user",
       "treeType": "oak",
-      "startTime": "2024-11-05T20:12:21.514",
-      "endTime": null,
-      "duration": 25,
-      "isCompleted": false,
-      "treePlanted": false
-    },
-    {
-      "id": "1730848584474",
-      "userId": "current_user",
-      "treeType": "birch",
-      "startTime": "2024-11-05T20:16:24.474",
-      "endTime": null,
-      "duration": 15,
-      "isCompleted": false,
-      "treePlanted": false
-    },
-    {
-      "id": "1730849032163",
-      "userId": "current_user",
-      "treeType": "maple",
-      "startTime": "2024-11-05T20:23:52.163",
+      "startTime": "2024-11-09T19:59:34.022",
       "endTime": null,
       "duration": 1,
       "isCompleted": false,
       "treePlanted": false
+    },
+    {
+      "id": "1731193193853",
+      "userId": "current_user",
+      "treeType": "pine",
+      "startTime": "2024-11-09T19:59:53.853",
+      "endTime": "2024-11-09T20:02:00.291",
+      "duration": 2,
+      "isCompleted": true,
+      "treePlanted": true
     }
   ],
   "users": [

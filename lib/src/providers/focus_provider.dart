@@ -9,14 +9,12 @@ class FocusProvider with ChangeNotifier {
   bool _isLoading = false;
   String _error = '';
   
-  // Estado do timer
   FocusSession? _currentSession;
   bool _isTimerActive = false;
   double _timerProgress = 0.0;
   Timer? _timer;
   int _remainingSeconds = 0;
 
-  // Getters
   List<FocusSession> get sessions => _sessions;
   bool get isLoading => _isLoading;
   String get error => _error;
@@ -25,7 +23,6 @@ class FocusProvider with ChangeNotifier {
   double get timerProgress => _timerProgress;
   int get remainingSeconds => _remainingSeconds;
 
-  // Formatação do display do timer
   String get timerDisplay {
     int minutes = _remainingSeconds ~/ 60;
     int seconds = _remainingSeconds % 60;
@@ -45,7 +42,7 @@ class FocusProvider with ChangeNotifier {
 
   void startTimer() {
     if (_currentSession == null) return;
-    
+
     _isTimerActive = true;
     notifyListeners();
 
@@ -68,16 +65,6 @@ class FocusProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void resetTimer() {
-    _timer?.cancel();
-    if (_currentSession != null) {
-      _remainingSeconds = _currentSession!.duration * 60;
-    }
-    _timerProgress = 0.0;
-    _isTimerActive = false;
-    notifyListeners();
-  }
-
   Future<void> _completeSession() async {
     if (_currentSession == null) return;
 
@@ -94,6 +81,7 @@ class FocusProvider with ChangeNotifier {
 
     await updateSession(completedSession);
     _isTimerActive = false;
+    _currentSession = null;
     notifyListeners();
   }
 
@@ -135,13 +123,13 @@ class FocusProvider with ChangeNotifier {
 
       await _focusService.updateSession(session);
       await loadSessions();
-      
+
       if (session.isCompleted && session.id == _currentSession?.id) {
         _currentSession = null;
         _isTimerActive = false;
         _timer?.cancel();
       }
-      
+
       _error = '';
     } catch (e) {
       _error = e.toString();

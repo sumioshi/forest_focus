@@ -30,52 +30,55 @@ class _FocusTimerScreenState extends State<FocusTimerScreen> {
   void _showSessionSelector() {
     final provider = context.read<FocusProvider>();
     final sessions = provider.sessions;
-    
+
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
         title: const Text('Select Session'),
         content: SizedBox(
           width: double.maxFinite,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                  _startNewSession();
-                },
-                child: const Text('Create New Session'),
-              ),
-              const SizedBox(height: 16),
-              const Divider(),
-              const SizedBox(height: 8),
-              const Text('Or select an existing session:'),
-              const SizedBox(height: 16),
-              Flexible(
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: sessions.where((s) => !s.isCompleted).length,
-                  itemBuilder: (context, index) {
-                    final session = sessions
-                        .where((s) => !s.isCompleted)
-                        .toList()[index];
-                    return ListTile(
-                      leading: Icon(
-                        Icons.park,
-                        color: Colors.green[700],
-                      ),
-                      title: Text('${session.treeType.capitalize()} - ${session.duration} min'),
-                      subtitle: Text('Created: ${_formatDate(session.startTime)}'),
-                      onTap: () {
-                        provider.setCurrentSession(session);
-                        Navigator.pop(context);
-                      },
-                    );
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                    _startNewSession();
                   },
+                  child: const Text('Create New Session'),
                 ),
-              ),
-            ],
+                const SizedBox(height: 16),
+                const Divider(),
+                const SizedBox(height: 8),
+                const Text('Or select an existing session:'),
+                const SizedBox(height: 16),
+                SizedBox(
+                  height: 200, // Limite de altura para evitar o problema de layout
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: sessions.where((s) => !s.isCompleted).length,
+                    itemBuilder: (context, index) {
+                      final session = sessions
+                          .where((s) => !s.isCompleted)
+                          .toList()[index];
+                      return ListTile(
+                        leading: Icon(
+                          Icons.park,
+                          color: Colors.green[700],
+                        ),
+                        title: Text('${session.treeType.capitalize()} - ${session.duration} min'),
+                        subtitle: Text('Created: ${_formatDate(session.startTime)}'),
+                        onTap: () {
+                          provider.setCurrentSession(session);
+                          Navigator.pop(context);
+                        },
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
