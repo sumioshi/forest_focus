@@ -15,10 +15,10 @@
       "userId": "current_user",
       "treeType": "oak",
       "startTime": "2024-11-09T19:59:34.022",
-      "endTime": null,
+      "endTime": "2024-11-11T18:34:27.951",
       "duration": 1,
-      "isCompleted": false,
-      "treePlanted": false
+      "isCompleted": true,
+      "treePlanted": true
     },
     {
       "id": "1731193193853",
@@ -29,6 +29,26 @@
       "duration": 2,
       "isCompleted": true,
       "treePlanted": true
+    },
+    {
+      "id": "1",
+      "userId": "user1",
+      "treeType": "oak",
+      "startTime": "2024-11-11T18:38:43.914653",
+      "endTime": null,
+      "duration": 25,
+      "isCompleted": false,
+      "treePlanted": false
+    },
+    {
+      "id": "3",
+      "userId": "user3",
+      "treeType": "cherry",
+      "startTime": "2024-11-11T18:38:44.097779",
+      "endTime": null,
+      "duration": 1,
+      "isCompleted": false,
+      "treePlanted": false
     }
   ],
   "users": [
